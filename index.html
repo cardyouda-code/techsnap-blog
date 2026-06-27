@@ -9,6 +9,45 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* X タイムライン */
+    .x-section {
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
+      background: var(--bg2);
+    }
+    .x-inner {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .x-eyebrow {
+      font-size: 0.7rem; font-weight: 700;
+      color: var(--text-muted); letter-spacing: 0.12em;
+      text-transform: uppercase; margin-bottom: 6px;
+      font-family: var(--font-sans);
+    }
+    .x-sub {
+      font-size: 0.85rem; color: var(--text-muted);
+      margin-bottom: 24px; line-height: 1.7;
+    }
+    .x-embed {
+      border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; background: var(--bg);
+      margin-bottom: 16px;
+    }
+    .x-follow-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--text); color: #fff;
+      font-family: var(--font-sans);
+      font-size: 0.82rem; font-weight: 700;
+      padding: 10px 22px; border-radius: 999px;
+      transition: opacity 0.15s;
+    }
+    .x-follow-btn:hover { opacity: 0.8; color: #fff; }
+    .x-follow-btn svg { flex-shrink: 0; }
+  </style>
 </head>
 <body>
 
@@ -17,7 +56,8 @@
       <a href="index.html" class="logo">Tech<span>Snap</span></a>
       <nav class="nav">
         <a href="#reviews">レビュー</a>
-        <a href="#ranking">ランキング</a>
+        <a href="#ranking">買って良かった</a>
+        <a href="#x-feed">X投稿</a>
       </nav>
       <button class="menu-toggle" aria-label="メニュー">
         <span></span><span></span><span></span>
@@ -25,7 +65,8 @@
     </div>
     <nav class="mobile-nav">
       <a href="#reviews">レビュー</a>
-      <a href="#ranking">ランキング</a>
+      <a href="#ranking">買って良かった</a>
+      <a href="#x-feed">X投稿</a>
     </nav>
   </header>
 
@@ -140,7 +181,7 @@
           </div>
           <div class="card-body">
             <div class="card-meta">
-              <span class="tag">スマホアクセサリー</span>
+              <span class="tag">スマホ・アクセサリー</span>
               <span class="date">2026年6月25日</span>
             </div>
             <h3><a href="articles/jetech-magsafe-slim-case-review.html">JETech マグネットスリムケース MagSafe対応｜「ケースはシンプルでいい」という大人の結論</a></h3>
@@ -155,7 +196,7 @@
           </div>
           <div class="card-body">
             <div class="card-meta">
-              <span class="tag">レンズアダプター</span>
+              <span class="tag">撮影機材</span>
               <span class="date">2026年6月25日</span>
             </div>
             <h3><a href="articles/canon-control-ring-adapter-review.html">Canon コントロールリングマウントアダプター EF-EOS R｜EFレンズ資産を「捨てない」という選択</a></h3>
@@ -170,7 +211,7 @@
           </div>
           <div class="card-body">
             <div class="card-meta">
-              <span class="tag">三脚・雲台</span>
+              <span class="tag">撮影機材</span>
               <span class="date">2026年6月25日</span>
             </div>
             <h3><a href="articles/manfrotto-410-review.html">Manfrotto 410 ギア付き雲台｜「構図で妥協する」のをやめた日</a></h3>
@@ -185,7 +226,7 @@
           </div>
           <div class="card-body">
             <div class="card-meta">
-              <span class="tag">カメラバッグ</span>
+              <span class="tag">撮影機材</span>
               <span class="date">2026年6月25日</span>
             </div>
             <h3><a href="articles/lowepro-pro-trekker-bp450-review.html">Lowepro プロトレッカー BP450 AW II｜「もう妥協しない」と決めた40代が選ぶべき一択</a></h3>
@@ -215,7 +256,7 @@
           </div>
           <div class="card-body">
             <div class="card-meta">
-              <span class="tag">カメラ</span>
+              <span class="tag">撮影機材</span>
               <span class="date">2026年6月25日</span>
             </div>
             <h3><a href="articles/canon-eos-6d-mark2-review.html">Canon EOS 6D Mark II レンズキット｜ミラーレス全盛の今、あえてこれを選ぶ理由</a></h3>
@@ -231,7 +272,7 @@
   <!-- Ranking -->
   <section class="ranking" id="ranking">
     <div class="container">
-      <h2 class="section-title">人気ランキング</h2>
+      <h2 class="section-title">買って良かったランキング</h2>
       <ol class="rank-list">
         <li class="rank-item">
           <span class="rank-num">1</span>
@@ -242,7 +283,7 @@
           <span class="rank-score">9.4</span>
         </li>
         <li class="rank-item">
-          <span class="rank-num">1</span>
+          <span class="rank-num">2</span>
           <div class="rank-body">
             <span class="tag sm">撮影機材</span>
             <a href="articles/dji-osmo-pocket-4-review.html">DJI Osmo Pocket 4｜「重い一眼を置いてきた日」の映像が一番良かった</a>
@@ -266,7 +307,7 @@
           <span class="rank-score">9.2</span>
         </li>
         <li class="rank-item">
-          <span class="rank-num">4</span>
+          <span class="rank-num">5</span>
           <div class="rank-body">
             <span class="tag sm">撮影機材</span>
             <a href="articles/manfrotto-410-review.html">Manfrotto 410 ギア付き雲台｜「構図で妥協する」のをやめた日</a>
@@ -274,6 +315,26 @@
           <span class="rank-score">9.2</span>
         </li>
       </ol>
+    </div>
+  </section>
+
+  <!-- X Timeline -->
+  <section class="x-section" id="x-feed">
+    <div class="x-inner">
+      <p class="x-eyebrow">X（Twitter）最新投稿</p>
+      <p class="x-sub">レビュー更新・おすすめ情報をXでも発信中</p>
+      <div class="x-embed">
+        <a class="twitter-timeline"
+           href="https://x.com/techsnapblog?ref_src=twsrc%5Etfw"
+           data-tweet-limit="5"
+           data-chrome="noheader nofooter noborders transparent"
+           data-theme="light">Posts by techsnapblog</a>
+        <script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
+      </div>
+      <a href="https://x.com/techsnapblog" target="_blank" rel="noopener" class="x-follow-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632 5.904-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        @techsnapblog をフォロー
+      </a>
     </div>
   </section>
 
