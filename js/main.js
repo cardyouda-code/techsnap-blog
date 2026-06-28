@@ -86,32 +86,31 @@
     const contentSec   = document.querySelector('.content-section');
 
     if (pinWrap && heroImg) {
-      /* Image: scale + opacity + blur as content rises */
+      /* Blueprint: image scale 1→0.98, opacity 1→0.9, blur 0→2px */
       gsap.to(heroImg, {
-        scale: 0.88,
-        opacity: 0.6,
-        filter: 'blur(6px) brightness(0.85)',
+        scale: 0.98,
+        opacity: 0.9,
+        filter: 'blur(2px)',
         ease: 'none',
         scrollTrigger: {
           trigger: pinWrap,
           start: 'top top',
-          end: 'bottom top',   /* 200vh total / end at bottom of pin wrap */
-          scrub: 1.2,
+          end: 'bottom top',
+          scrub: 1.4,
         }
       });
     }
 
     if (pinWrap && heroText) {
-      /* Text: fades out in first 40% of pin travel */
+      /* Blueprint: title opacity 100% → 30% */
       gsap.to(heroText, {
-        opacity: 0,
-        y: -32,
+        opacity: 0.3,
         ease: 'none',
         scrollTrigger: {
           trigger: pinWrap,
           start: 'top top',
-          end: '40% top',
-          scrub: 0.8,
+          end: '45% top',
+          scrub: 1.0,
         }
       });
     }
@@ -122,14 +121,28 @@
         scrollTrigger: {
           trigger: pinWrap,
           start: 'top top',
-          end: '20% top',
-          scrub: 0.6,
+          end: '15% top',
+          scrub: 0.5,
         }
       });
     }
 
-    /* Content section: CSS margin-top:-100vh handles overlap.
-       No translateY needed — it's already on top of Hero via CSS. */
+    /* Content section: rises from below, covering Hero from 55% of pin travel */
+    if (pinWrap && contentSec) {
+      gsap.fromTo(contentSec,
+        { y: '40vh' },
+        {
+          y: '0vh',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: pinWrap,
+            start: '50% top',   /* starts rising at 50% of pin */
+            end: 'bottom top',  /* fully in place at end of pin */
+            scrub: 1.0,
+          }
+        }
+      );
+    }
 
     /* === Article cards stagger === */
     const cards = gsap.utils.toArray('.article-card');
