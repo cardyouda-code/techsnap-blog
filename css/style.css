@@ -235,21 +235,20 @@ img { max-width: 100%; display: block; }
    Gradient mask that blends Hero into Content
    =================================================== */
 .hero-overlay-bridge {
-  position: sticky;
+  position: absolute;
   bottom: 0;
   left: 0; right: 0;
-  height: 280px;
+  height: 40vh;
   z-index: 5;
   pointer-events: none;
-  /* Bottom of hero-pin-wrap — fades content in */
+  /* Bottom of hero-pin-wrap — fades Hero bottom into content bg */
   background: linear-gradient(
     to top,
     var(--bg) 0%,
-    rgba(14,13,12,0.92) 30%,
-    rgba(14,13,12,0.5) 65%,
+    rgba(14,13,12,0.85) 35%,
+    rgba(14,13,12,0.4) 70%,
     transparent 100%
   );
-  margin-top: -280px;
 }
 
 /* ===================================================
@@ -266,7 +265,7 @@ img { max-width: 100%; display: block; }
     linear-gradient(180deg, var(--bg) 0%, var(--bg) 100%);
   border-radius: 28px 28px 0 0;
   padding-top: 72px;
-  margin-top: -60px;
+  margin-top: -100vh; /* overlap: sits directly on top of Hero */
   box-shadow: 0 -2px 0 rgba(220,210,195,0.06), 0 -40px 60px rgba(14,13,12,0.95);
 }
 .content-section::before {
