@@ -177,8 +177,8 @@ img { max-width: 100%; display: block; }
   will-change: transform, opacity, filter;
 }
 .hero-image-wrap img {
-  max-height: 88vh;
-  max-width: min(460px, 50vw);
+  max-height: 94vh;              /* 88vh → 94vh: +6.8% */
+  max-width: min(496px, 54vw);   /* 460px/50vw → 496px/54vw: +7.8% */
   width: auto; object-fit: contain;
   /* multiply: 白(#fff)×背景色=背景色 → 白が消えて人物だけ浮かぶ */
   mix-blend-mode: multiply;
@@ -193,8 +193,8 @@ img { max-width: 100%; display: block; }
   position: absolute; z-index: 4;
   bottom: 14vh; left: 0;
   text-align: left;
-  width: 52%;
-  padding: 0 0 0 8vw;
+  width: 50%;
+  padding: 0 0 0 14vw;   /* 8vw → 14vw: 約18%右へ移動 */
   pointer-events: none;
   will-change: opacity, transform;
 }
@@ -207,7 +207,7 @@ img { max-width: 100%; display: block; }
   font-family: var(--font-sans);
   font-size: clamp(1.45rem, 3.2vw, 2.5rem);
   font-weight: 700; letter-spacing: -0.03em; line-height: 1.18;
-  color: var(--text); margin-bottom: 18px;
+  color: var(--text); margin-bottom: 11px;  /* 18px → 11px: 39%縮小 */
   /* 明背景なのでtext-shadowは不要 */
 }
 .hero-sub {
