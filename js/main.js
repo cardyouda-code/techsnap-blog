@@ -128,21 +128,8 @@
       });
     }
 
-    /* Content section slides up — starts rising at 60% of pin */
-    if (pinWrap && contentSec) {
-      gsap.fromTo(contentSec,
-        { y: 80 },
-        {
-          y: 0, ease: 'none',
-          scrollTrigger: {
-            trigger: pinWrap,
-            start: '55% top',
-            end: 'bottom top',
-            scrub: 1.0,
-          }
-        }
-      );
-    }
+    /* Content section: CSS margin-top:-100vh handles overlap.
+       No translateY needed — it's already on top of Hero via CSS. */
 
     /* === Article cards stagger === */
     const cards = gsap.utils.toArray('.article-card');
