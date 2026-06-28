@@ -110,9 +110,9 @@ img { max-width: 100%; display: block; }
    高さを持つラッパーは使わない。
    =================================================== */
 .hero {
-  /* GSAPがpin時にfixedを付与するが、初期もfixedで背景に固定 */
-  position: fixed;
-  top: 0; left: 0;
+  /* GSAPのpin:trueが期間中だけposition:fixedに変更する */
+  /* 初期はrelative — pin終了後は通常フローに戻る */
+  position: relative;
   height: 100vh;
   width: 100%;
   overflow: hidden;
