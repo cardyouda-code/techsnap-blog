@@ -79,71 +79,81 @@
        HERO PIN — image fades/scales as content rises
        trigger: hero-pin-wrap (200vh)
        =================================================== */
-    const pinWrap      = document.querySelector('.hero-pin-wrap');
-    const heroImg      = document.querySelector('.hero-image-wrap');
-    const heroText     = document.querySelector('.hero-text-overlay');
-    const heroHint     = document.querySelector('.hero-scroll-hint');
-    const contentSec   = document.querySelector('.content-section');
+    const heroEl    = document.querySelector('.hero');
+    const heroImg   = document.querySelector('.hero-image-wrap');
+    const heroText  = document.querySelector('.hero-text-overlay');
+    const heroHint  = document.querySelector('.hero-scroll-hint');
+    const contentSec = document.querySelector('.content-section');
 
-    if (pinWrap && heroImg) {
-      /* Blueprint: image scale 1→0.98, opacity 1→0.9, blur 0→2px */
+    /* -------------------------------------------------------
+       Hero をGSAPでpin（position:fixed相当）
+       heroはCSSでposition:fixedなので、
+       GSAPのpinはcontent-sectionが通り過ぎるまでの間
+       Heroアニメーションを制御するためだけに使う
+       ------------------------------------------------------- */
+
+    /* Hero画像: スクロールに合わせてごく静かに変化 */
+    if (heroImg && contentSec) {
       gsap.to(heroImg, {
         scale: 0.98,
         opacity: 0.9,
         filter: 'blur(2px)',
         ease: 'none',
         scrollTrigger: {
-          trigger: pinWrap,
-          start: 'top top',
-          end: 'bottom top',
+          trigger: contentSec,
+          start: 'top bottom',   /* content-sectionが画面下端に入り始めたとき */
+          end: 'top top',        /* content-sectionが画面上端に揃ったとき */
           scrub: 1.4,
         }
       });
     }
 
-    if (pinWrap && heroText) {
-      /* Blueprint: title opacity 100% → 30% */
+    /* Hero タイトル: opacity 1→0.3 */
+    if (heroText && contentSec) {
       gsap.to(heroText, {
         opacity: 0.3,
         ease: 'none',
         scrollTrigger: {
-          trigger: pinWrap,
-          start: 'top top',
-          end: '45% top',
+          trigger: contentSec,
+          start: 'top bottom',
+          end: 'top 60%',
           scrub: 1.0,
         }
       });
     }
 
-    if (pinWrap && heroHint) {
+    /* Scrollヒント: すぐに消える */
+    if (heroHint) {
       gsap.to(heroHint, {
-        opacity: 0, ease: 'none',
+        opacity: 0,
+        ease: 'none',
         scrollTrigger: {
-          trigger: pinWrap,
-          start: 'top top',
-          end: '15% top',
+          trigger: document.body,
+          start: '100px top',
+          end: '300px top',
           scrub: 0.5,
         }
       });
     }
 
     /* -------------------------------------------------------
-       Story Transition: Article Surfaceがせり上がる
-       - content-sectionはCSS margin-top:-100vhでHero上に初期配置
-       - GSAPがさらにtranslateY(60vh)→(0)でせり上がりを演出
-       - Hero上に10〜15%残るよう、終了時もHeroが完全に隠れない
+       Story Transition: content-sectionがせり上がる
+       - CSSのmargin-top:100vhでHeroの下に通常フローで配置
+       - GSAPがtranslateY(80vh→0)でHeroの上にせり上がる
+       - scrub連動で「自然に生まれる」感覚を作る
+       - Heroは背景に残り続ける（position:fixed）
        ------------------------------------------------------- */
-    if (pinWrap && contentSec) {
+    if (contentSec) {
       gsap.fromTo(contentSec,
-        { y: '65vh' },   /* 初期位置: 画面下65%に隠れている */
+        { y: '80vh' },
         {
-          y: '0vh',       /* 終了位置: 自然な位置（margin-top:-100vhが基準） */
+          y: '0vh',
           ease: 'none',
           scrollTrigger: {
-            trigger: pinWrap,
-            start: 'top top',      /* ページ最上部からスクロール開始と同時 */
-            end: 'bottom top',     /* pin-wrap底部＝200vh地点で完了 */
-            scrub: 1.2,            /* スクロールに滑らかに追従 */
+            trigger: contentSec,
+            start: 'top bottom',   /* content-sectionの上端が画面下端に入った瞬間 */
+            end: 'top top',        /* content-sectionの上端が画面上端に達した時点 */
+            scrub: 1.2,
           }
         }
       );
