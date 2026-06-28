@@ -176,12 +176,11 @@ img { max-width: 100%; display: block; }
   /* heroの全面を覆う */
   position: absolute; inset: 0; z-index: 2;
 
-  /* 2列grid: テキスト44% / 人物56% */
+  /* 2列grid: テキスト50% / 人物50%
+     テキスト列を広げて、テキストブロックをHero中央付近に置く */
   display: grid;
-  grid-template-columns: 44fr 56fr;
+  grid-template-columns: 50fr 50fr;
   grid-template-rows: 1fr;
-
-  /* gridアイテムの高さをheroに合わせる */
   align-items: stretch;
 }
 
@@ -217,17 +216,17 @@ img { max-width: 100%; display: block; }
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;    /* テキストを下寄せ — 人物のBottomと揃う */
-  /* padding-left 廃止 — align-items で列内右寄せ、右からオフセット */
-  padding: 0 2vw 10vh 0;
-  align-items: flex-end;        /* テキストブロックを列の右端に寄せる */
+  justify-content: flex-end;
+  /* 右端基準で配置 — padding-leftは使わない */
+  padding: 0 4vw 12vh 0;
+  align-items: flex-end;        /* テキストを列の右端（=Hero中央）に寄せる */
   pointer-events: none;
   will-change: opacity, transform;
 }
 
-/* テキストブロック幅を制限し、右端基準で中央寄りに収める */
+/* テキストブロック幅 — 右端基準で自然に収まる幅 */
 .hero-text-overlay > * {
-  width: min(320px, 80%);
+  width: min(280px, 88%);
   text-align: left;
 }
 .hero-eyebrow {
