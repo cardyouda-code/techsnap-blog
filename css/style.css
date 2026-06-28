@@ -237,16 +237,21 @@ img { max-width: 100%; display: block; }
    GSAPがtranslateYでHero上にせり上がる演出をする。
    =================================================== */
 .content-section {
-  position: relative;
-  z-index: 10;               /* Heroのz-index:1より上 */
+  position: sticky;          /* スクロールに追従しつつHero上に重なる */
+  top: 0;                    /* 画面上端に張り付く */
+  z-index: 10;               /* Hero z-index:1 より上 */
   background: var(--bg);
   background-image:
     radial-gradient(ellipse 80% 30% at 50% 0%, rgba(200,184,150,0.04) 0%, transparent 55%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg) 100%);
   border-radius: 28px 28px 0 0;
   padding-top: 72px;
-  margin-top: 100vh;         /* Heroの高さ分だけ下に — Heroが見える空間を作る */
-  box-shadow: 0 -1px 0 rgba(220,210,195,0.1), 0 -60px 80px rgba(14,13,12,0.98);
+  /* margin-top 廃止 — 重なりはGSAP transformで制御 */
+  /* 上辺のshadowでHeroとの境界を消す */
+  box-shadow:
+    0 -1px 0 rgba(220,210,195,0.08),
+    0 -80px 100px rgba(14,13,12,1);
+  will-change: transform;
 }
 .content-section::before {
   content: '';
