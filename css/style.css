@@ -438,10 +438,10 @@ img { max-width: 100%; display: block; }
 /* ===== TAG & DATE ===== */
 .tag {
   display: inline-block;
-  background: rgba(220,210,195,0.06); color: var(--text-muted);
+  background: rgba(60,50,40,0.08); color: var(--text);
   font-family: var(--font-sans); font-size: 0.65rem; font-weight: 700;
   padding: 3px 9px; border-radius: 999px; letter-spacing: 0.06em;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(60,50,40,0.18);
 }
 .tag.sm { font-size: 0.6rem; padding: 2px 7px; }
 .date { font-family: var(--font-sans); font-size: 0.68rem; color: var(--text-sub); }
