@@ -134,27 +134,37 @@ img { max-width: 100%; display: block; }
 /* Warm noise + glow background */
 .hero-bg {
   position: absolute; inset: 0; z-index: 0;
+  /* Warm White背景 — Hero画像の白を自然に溶け込ませる */
   background:
-    radial-gradient(ellipse 70% 55% at 52% 38%, rgba(210,190,155,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 45% 45% at 25% 72%, rgba(160,120,80,0.06) 0%, transparent 55%),
-    radial-gradient(ellipse 35% 35% at 78% 20%, rgba(180,160,130,0.04) 0%, transparent 50%),
-    linear-gradient(175deg, #131210 0%, #0e0d0c 50%, #0c0b0a 100%);
+    /* 右上の柔らかい自然光 — 人物が浮かび上がる空間を作る */
+    radial-gradient(ellipse 60% 50% at 72% 20%, rgba(255,250,240,0.9) 0%, transparent 65%),
+    /* 中央の暖かい光 */
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(252,248,240,0.6) 0%, transparent 70%),
+    /* 左下の影 — 奥行きを作る */
+    radial-gradient(ellipse 40% 40% at 10% 85%, rgba(235,228,215,0.5) 0%, transparent 60%),
+    /* ベース */
+    linear-gradient(165deg, #FDFAF5 0%, #F7F5F1 50%, #F2EFE9 100%);
 }
 .hero-bg::before {
   content: '';
   position: absolute; inset: 0;
-  /* Subtle arc lines */
-  background-image:
-    radial-gradient(ellipse 120% 60% at 50% 50%, transparent 58%, rgba(210,190,155,0.025) 59%, transparent 60%),
-    radial-gradient(ellipse 90% 45% at 50% 50%, transparent 48%, rgba(210,190,155,0.02) 49%, transparent 50%);
+  /* 紙のような微細テクスチャ */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.022'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
   pointer-events: none;
 }
 .hero-bg::after {
   content: '';
   position: absolute; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  background-size: 280px 280px;
-  opacity: 0.5; pointer-events: none;
+  /* 下部グラデーション — content-sectionとの境界を消す */
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 55%,
+    rgba(247,245,241,0.6) 80%,
+    rgba(247,245,241,1) 100%
+  );
+  pointer-events: none;
 }
 
 /* Hero image */
@@ -170,8 +180,10 @@ img { max-width: 100%; display: block; }
   max-height: 88vh;
   max-width: min(460px, 50vw);
   width: auto; object-fit: contain;
+  /* multiply: 白(#fff)×背景色=背景色 → 白が消えて人物だけ浮かぶ */
   mix-blend-mode: multiply;
-  filter: invert(1) brightness(0.9) contrast(1.05);
+  /* オリジナル画像のまま使用 — invert削除 */
+  filter: none;
   pointer-events: none; user-select: none;
   display: block;
 }
@@ -188,7 +200,7 @@ img { max-width: 100%; display: block; }
 }
 .hero-eyebrow {
   font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600;
-  color: rgba(220,210,195,0.55); letter-spacing: 0.22em;
+  color: rgba(60,50,40,0.45); letter-spacing: 0.22em;
   text-transform: uppercase; margin-bottom: 16px;
 }
 .hero-text-overlay h1 {
@@ -196,16 +208,12 @@ img { max-width: 100%; display: block; }
   font-size: clamp(1.45rem, 3.2vw, 2.5rem);
   font-weight: 700; letter-spacing: -0.03em; line-height: 1.18;
   color: var(--text); margin-bottom: 18px;
-  text-shadow:
-    0 2px 6px rgba(0,0,0,0.95),
-    0 6px 24px rgba(0,0,0,0.85),
-    0 12px 48px rgba(0,0,0,0.6);
+  /* 明背景なのでtext-shadowは不要 */
 }
 .hero-sub {
-  font-size: 0.88rem; color: rgba(220,210,195,0.65);
+  font-size: 0.88rem; color: rgba(60,50,40,0.6);
   line-height: 1.85; margin-bottom: 28px;
   max-width: 340px;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.9), 0 3px 20px rgba(0,0,0,0.75);
 }
 .btn-primary {
   display: inline-block;
