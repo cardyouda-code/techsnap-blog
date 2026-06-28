@@ -171,14 +171,14 @@ img { max-width: 100%; display: block; }
 .hero-image-wrap {
   position: absolute; inset: 0; z-index: 2;
   display: flex;
-  align-items: flex-end;        /* bottom align */
-  justify-content: flex-end;    /* right align */
-  padding-right: 6vw;
+  align-items: flex-end;        /* bottom align 維持 */
+  justify-content: flex-end;    /* right align 維持 */
+  padding-right: 2vw;           /* 6vw → 2vw: 人物を左へ寄せ中央空白を埋める */
   will-change: transform, opacity, filter;
 }
 .hero-image-wrap img {
-  max-height: 94vh;              /* 88vh → 94vh: +6.8% */
-  max-width: min(496px, 54vw);   /* 460px/50vw → 496px/54vw: +7.8% */
+  max-height: 94vh;
+  max-width: min(520px, 58vw);   /* 54vw → 58vw: 人物を広げて中央空白を埋める */
   width: auto; object-fit: contain;
   /* multiply: 白(#fff)×背景色=背景色 → 白が消えて人物だけ浮かぶ */
   mix-blend-mode: multiply;
@@ -191,10 +191,13 @@ img { max-width: 100%; display: block; }
 /* Hero text */
 .hero-text-overlay {
   position: absolute; z-index: 4;
-  bottom: 14vh; left: 0;
+  /* bottomからtopへ: 視覚的重心を上げ、人物と同じ帯域に収める */
+  top: 50%;
+  transform: translateY(-30%);   /* 中央から少し上 — 人物の胸〜顔と揃う */
+  left: 0;
   text-align: left;
-  width: 50%;
-  padding: 0 0 0 14vw;   /* 8vw → 14vw: 約18%右へ移動 */
+  width: 42%;              /* 50% → 42%: テキスト右端が画像左端に近づく */
+  padding: 0 0 0 11vw;    /* 14vw → 11vw: 左の空白を詰める */
   pointer-events: none;
   will-change: opacity, transform;
 }
@@ -510,9 +513,10 @@ img { max-width: 100%; display: block; }
   }
   .hero-image-wrap img { max-height: 70vh; max-width: 80vw; }
   .hero-text-overlay {
-    left: 50%; transform: translateX(-50%);
+    top: auto; bottom: 8vh;      /* mobile: bottomに戻す */
+    left: 50%;
+    transform: translateX(-50%); /* topのtranslateYを打ち消す */
     text-align: center; width: 92%; padding: 0 20px;
-    bottom: 8vh;
   }
   .hero-sub { margin-left: auto; margin-right: auto; }
   .hero-text-overlay h1 { font-size: 1.3rem; }
