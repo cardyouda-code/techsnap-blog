@@ -137,23 +137,32 @@
     }
 
     /* -------------------------------------------------------
-       Story Transition: content-sectionがせり上がる
-       - CSSのmargin-top:100vhでHeroの下に通常フローで配置
-       - GSAPがtranslateY(80vh→0)でHeroの上にせり上がる
-       - scrub連動で「自然に生まれる」感覚を作る
-       - Heroは背景に残り続ける（position:fixed）
+       Story Transition: Article SurfaceがHeroの上に浮かび上がる
+       構造:
+         - .hero          position:fixed  z-index:1  → 常に背景
+         - .content-section position:sticky top:0 z-index:10 → Hero上に重なる
+
+       動作:
+         - ページ読み込み時、content-sectionはHeroと同じ位置（top:0）に
+           既に重なっているが、translateY(10vh)で少し下に押し下げられている
+         - スクロール開始と同時に translateY(10vh → 0) で浮かび上がる
+         - Hero画像はscale:0.98 / opacity:0.9 / blur:2px へ静かに変化
+         - translateYが8〜12vh程度なので動きは極めて控えめ
+         - Heroは position:fixed のため背景として残り続ける
+
+       triggerをheroにすることで、スクロール開始の瞬間から連動する
        ------------------------------------------------------- */
-    if (contentSec) {
+    if (contentSec && heroEl) {
       gsap.fromTo(contentSec,
-        { y: '80vh' },
+        { y: '10vh' },     /* 初期: 10vh下にずれた状態 */
         {
-          y: '0vh',
+          y: '0vh',        /* 終了: 自然な位置（top:0に吸着） */
           ease: 'none',
           scrollTrigger: {
-            trigger: contentSec,
-            start: 'top bottom',   /* content-sectionの上端が画面下端に入った瞬間 */
-            end: 'top top',        /* content-sectionの上端が画面上端に達した時点 */
-            scrub: 1.2,
+            trigger: heroEl,       /* Hero要素をtriggerに — スクロール開始と同時に動く */
+            start: 'top top',      /* ページ最上部から開始 */
+            end: '+=600',          /* 600pxスクロールで完了 — ゆっくり浮かび上がる */
+            scrub: 1.8,            /* 滑らかに追従 */
           }
         }
       );
