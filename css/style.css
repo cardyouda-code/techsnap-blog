@@ -545,6 +545,7 @@ img { max-width: 100%; display: block; }
     padding: 12vh 20px 4vh;
     text-align: left;
     align-items: flex-start;
+    transform: none;  /* デスクトップ用のtranslateX(8vw)をモバイルでは無効化 */
   }
   .hero-image-wrap {
     justify-content: center;
