@@ -377,6 +377,23 @@ img { max-width: 100%; display: block; }
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
 }
+.article-card.more-hidden { display: none; }
+
+.show-more-wrap { display: flex; justify-content: center; margin-top: 40px; }
+.btn-show-more {
+  display: inline-block;
+  background: transparent;
+  color: var(--accent);
+  font-family: var(--font-sans); font-weight: 600; font-size: 0.78rem;
+  padding: 11px 32px; border-radius: 999px; letter-spacing: 0.1em;
+  text-transform: uppercase; cursor: pointer;
+  border: 1px solid var(--border-light);
+  transition: all 0.25s;
+}
+.btn-show-more:hover {
+  background: rgba(60,50,40,0.05);
+  border-color: var(--accent-warm);
+}
 
 /* Card — initially invisible, JS adds .visible */
 .article-card {

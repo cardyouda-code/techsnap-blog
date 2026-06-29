@@ -31,6 +31,38 @@
     onHeroScroll();
   }
 
+  /* ------ 記事の表示件数制限（最大15件 + もっと見る） ------ */
+  const MAX_VISIBLE_ARTICLES = 15;
+  const allCards = Array.from(document.querySelectorAll('.article-card'));
+  const showMoreBtn = document.getElementById('show-more-btn');
+  let articlesExpanded = false;
+
+  function applyArticleLimit() {
+    if (!showMoreBtn) return;
+    if (allCards.length <= MAX_VISIBLE_ARTICLES) {
+      showMoreBtn.style.display = 'none';
+      return;
+    }
+    allCards.forEach((card, i) => {
+      card.classList.toggle('more-hidden', !articlesExpanded && i >= MAX_VISIBLE_ARTICLES);
+    });
+    showMoreBtn.style.display = articlesExpanded ? 'none' : '';
+  }
+  applyArticleLimit();
+
+  if (showMoreBtn) {
+    showMoreBtn.addEventListener('click', () => {
+      articlesExpanded = true;
+      applyArticleLimit();
+      allCards.forEach(card => {
+        if (card.classList.contains('more-hidden')) return;
+        if (!card.classList.contains('visible')) {
+          requestAnimationFrame(() => card.classList.add('visible'));
+        }
+      });
+    });
+  }
+
   /* ------ Category filter ------ */
   const catBtns = document.querySelectorAll('.cat-btn');
   catBtns.forEach(btn => {
@@ -38,8 +70,15 @@
       catBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const cat = btn.dataset.cat;
-      document.querySelectorAll('.article-card').forEach(card => {
-        const show = cat === 'all' || card.dataset.cat === cat;
+
+      /* カテゴリ絞り込み中は15件制限を無視して全件表示し、
+         「すべて」に戻したときだけ制限を再適用する */
+      if (showMoreBtn) showMoreBtn.style.display = (cat === 'all' && !articlesExpanded) ? '' : 'none';
+
+      allCards.forEach(card => {
+        const matches = cat === 'all' || card.dataset.cat === cat;
+        const limited = cat === 'all' && !articlesExpanded && card.classList.contains('more-hidden');
+        const show = matches && !limited;
         card.style.display = show ? '' : 'none';
         if (show && !card.classList.contains('visible')) {
           requestAnimationFrame(() => card.classList.add('visible'));
