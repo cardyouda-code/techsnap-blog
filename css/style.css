@@ -507,7 +507,10 @@ img { max-width: 100%; display: block; }
 .x-section {
   padding: 72px 0;
   border-top: 1px solid var(--border);
-  background: var(--bg);
+  /* 記事一覧・ランキングと同じ半透明にし、Heroが透けて見えるよう統一 */
+  background: rgba(247,245,241, 0.55);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
 }
 .x-inner { max-width: 540px; margin: 0 auto; padding: 0 20px; text-align: center; }
 .x-eyebrow {
@@ -531,7 +534,10 @@ img { max-width: 100%; display: block; }
 /* ===== FOOTER ===== */
 .site-footer {
   padding: 60px 0 36px;
-  background: #EDE9E3;
+  /* 記事一覧・ランキング・Xセクションと同じ半透明にし、Heroが透けて見えるよう統一 */
+  background: rgba(237,233,227, 0.55);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
   border-top: 1px solid var(--border);
   color: var(--text-muted);
 }
