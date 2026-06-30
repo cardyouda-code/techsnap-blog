@@ -343,7 +343,7 @@ img { max-width: 100%; display: block; }
 .content-section > * { position: relative; z-index: 1; }
 
 /* ===== CATEGORIES ===== */
-.categories { padding: 0 0 36px; }
+.categories { padding: 0 0 36px; scroll-margin-top: 80px; /* 固定ヘッダーに隠れないよう余白を確保 */ }
 .cat-list { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
 .cat-list::-webkit-scrollbar { display: none; }
 .cat-btn {
@@ -579,6 +579,18 @@ img { max-width: 100%; display: block; }
   .hero-image-wrap img { max-height: 65vh; }  /* サイズを少し大きく */
   .hero-sub { text-align: left; }
   .hero-text-overlay h1 { font-size: 1.3rem; }
+
+  /* カテゴリボタン: 横スクロールではなく折り返して
+     1画面に全て収まるようにする */
+  .cat-list {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    gap: 6px;
+  }
+  .cat-btn {
+    padding: 6px 12px;
+    font-size: 0.66rem;
+  }
 
   .content-section { border-radius: 18px 18px 0 0; padding-top: 44px; }
 
