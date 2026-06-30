@@ -21,7 +21,7 @@
           '<p class="amazon-music-eyebrow">\u{1F3A7} 高音質な音楽配信を楽しもう</p>' +
           '<p class="amazon-music-title">Amazon Music Unlimited</p>' +
         '</div>' +
-        '<a href="https://www.amazon.co.jp/music/unlimited/?tag=taijp-22" target="_blank" rel="noopener sponsored" class="amazon-music-btn">無料体験で聴いてみる</a>';
+        '<a href="https://www.amazon.co.jp/music/unlimited/?tag=techsnap-22" target="_blank" rel="noopener sponsored" class="amazon-music-btn">無料体験で聴いてみる</a>';
       anchor.insertAdjacentElement('afterend', block);
     }
   }
