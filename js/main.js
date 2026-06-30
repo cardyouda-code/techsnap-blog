@@ -126,6 +126,12 @@
       btn.classList.add('active');
       currentCat = btn.dataset.cat;
       articlesExpanded = false;  /* カテゴリ切替時は毎回15件制限から再スタート */
+      /* 検索キーワードが残ったままだと「カテゴリ×検索」のAND条件で
+         該当0件になり、ボタンが反応していないように見えるため、
+         カテゴリ切替時は検索をクリアしてそのカテゴリ全体を表示する */
+      searchQuery = '';
+      const searchInputEl = document.getElementById('site-search');
+      if (searchInputEl) searchInputEl.value = '';
       updateArticleVisibility({ forceReveal: true });
     });
   });
