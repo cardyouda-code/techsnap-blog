@@ -38,7 +38,8 @@
   let currentCat = 'all';
   let articlesExpanded = false;
 
-  function updateArticleVisibility() {
+  function updateArticleVisibility(opts) {
+    const forceReveal = !!(opts && opts.forceReveal);
     const matches = allCards.filter(card => currentCat === 'all' || card.dataset.cat === currentCat);
 
     allCards.forEach(card => {
@@ -49,7 +50,20 @@
     matches.forEach((card, i) => {
       const hidden = !articlesExpanded && i >= MAX_VISIBLE_ARTICLES;
       card.classList.toggle('more-hidden', hidden);
-      if (!hidden && !card.classList.contains('visible')) {
+      if (hidden) return;
+      if (forceReveal) {
+        /* ユーザー操作（カテゴリ切替・もっと見る）で表示されたカードは、
+           GSAPのScrollTrigger（画面内に入ったらフェードイン）が
+           display:noneだった間のズレで反応しないことがあるため、
+           （既にvisibleクラスが付いていてもGSAPが後からopacity:0を
+           inline上書きしている場合があるので）毎回強制的に表示する。
+           GSAPのトゥイーンが同時に進行中だと毎フレームinline styleを
+           上書きして競合するため、先に該当カードのトゥイーンを止める。 */
+        if (window.gsap) gsap.killTweensOf(card);
+        card.classList.add('visible');
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0px)';
+      } else if (!card.classList.contains('visible')) {
         requestAnimationFrame(() => card.classList.add('visible'));
       }
     });
@@ -57,13 +71,17 @@
     if (showMoreBtn) {
       showMoreBtn.style.display = (!articlesExpanded && matches.length > MAX_VISIBLE_ARTICLES) ? '' : 'none';
     }
+
+    if (forceReveal && window.ScrollTrigger) {
+      ScrollTrigger.refresh();
+    }
   }
   updateArticleVisibility();
 
   if (showMoreBtn) {
     showMoreBtn.addEventListener('click', () => {
       articlesExpanded = true;
-      updateArticleVisibility();
+      updateArticleVisibility({ forceReveal: true });
     });
   }
 
@@ -75,7 +93,7 @@
       btn.classList.add('active');
       currentCat = btn.dataset.cat;
       articlesExpanded = false;  /* カテゴリ切替時は毎回15件制限から再スタート */
-      updateArticleVisibility();
+      updateArticleVisibility({ forceReveal: true });
     });
   });
 
