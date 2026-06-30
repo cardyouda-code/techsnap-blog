@@ -56,10 +56,23 @@
   const showMoreBtn = document.getElementById('show-more-btn');
   let currentCat = 'all';
   let articlesExpanded = false;
+  let searchQuery = '';
+
+  function cardMatchesSearch(card) {
+    if (!searchQuery) return true;
+    if (!card.dataset.searchText) {
+      card.dataset.searchText = card.textContent.toLowerCase();
+    }
+    return card.dataset.searchText.includes(searchQuery);
+  }
 
   function updateArticleVisibility(opts) {
     const forceReveal = !!(opts && opts.forceReveal);
-    const matches = allCards.filter(card => currentCat === 'all' || card.dataset.cat === currentCat);
+    /* 検索中はカテゴリ・15件制限を無視して全件から検索する */
+    const matches = allCards.filter(card =>
+      (searchQuery || currentCat === 'all' || card.dataset.cat === currentCat) && cardMatchesSearch(card)
+    );
+    const limitActive = !searchQuery;
 
     allCards.forEach(card => {
       const isMatch = matches.includes(card);
@@ -67,7 +80,7 @@
     });
 
     matches.forEach((card, i) => {
-      const hidden = !articlesExpanded && i >= MAX_VISIBLE_ARTICLES;
+      const hidden = limitActive && !articlesExpanded && i >= MAX_VISIBLE_ARTICLES;
       card.classList.toggle('more-hidden', hidden);
       if (hidden) return;
       if (forceReveal) {
@@ -88,7 +101,7 @@
     });
 
     if (showMoreBtn) {
-      showMoreBtn.style.display = (!articlesExpanded && matches.length > MAX_VISIBLE_ARTICLES) ? '' : 'none';
+      showMoreBtn.style.display = (limitActive && !articlesExpanded && matches.length > MAX_VISIBLE_ARTICLES) ? '' : 'none';
     }
 
     if (forceReveal && window.ScrollTrigger) {
@@ -115,6 +128,26 @@
       updateArticleVisibility({ forceReveal: true });
     });
   });
+
+  /* ------ サイト内キーワード検索 ------ */
+  const searchInput = document.getElementById('site-search');
+  if (searchInput) {
+    let searchDebounce;
+    searchInput.addEventListener('input', () => {
+      clearTimeout(searchDebounce);
+      searchDebounce = setTimeout(() => {
+        searchQuery = searchInput.value.trim().toLowerCase();
+        articlesExpanded = false;
+        updateArticleVisibility({ forceReveal: true });
+      }, 120);
+    });
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      const target = document.getElementById('reviews');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
 
   /* ------ IntersectionObserver fallback for cards ------ */
   function initCardFadeIn() {

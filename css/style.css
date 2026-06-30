@@ -164,6 +164,41 @@ img { max-width: 100%; display: block; }
    content-sectionが半透明になった今は、このグラデーションが
    そのまま帯として透けて見えてしまうため。 */
 /* ===================================================
+   HERO SEARCH — 「最新レビューを読む」ボタンがあった位置に配置。
+   余計な見出し文言は置かず、入力欄のみ
+   =================================================== */
+.hero-search {
+  position: relative;
+  /* hero-text-overlay > * の width:min(280px,88%) をそのまま使う */
+}
+.hero-search svg {
+  position: absolute; left: 16px; top: 50%;
+  transform: translateY(-50%);
+  color: rgba(60,50,40,0.45);
+  pointer-events: none;
+}
+.hero-search input {
+  width: 100%;
+  padding: 12px 18px 12px 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(60,50,40,0.18);
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text);
+  outline: none;
+  pointer-events: all;
+  transition: border-color 0.2s, background 0.2s;
+}
+.hero-search input::placeholder { color: rgba(60,50,40,0.45); }
+.hero-search input:focus {
+  border-color: var(--accent-warm);
+  background: rgba(255,255,255,0.78);
+}
+
+/* ===================================================
    HERO POSTER — grid layout container
    左列: テキスト / 右列: 人物
    二者を一つのレイアウトシステムで管理し
@@ -558,6 +593,8 @@ img { max-width: 100%; display: block; }
 @media (max-width: 768px) {
   .nav { display: none; }
   .menu-toggle { display: flex; }
+
+  .hero-search input { font-size: 0.8rem; padding: 10px 16px 10px 38px; }
 
   /* モバイル: gridを縦積みに変更 */
   .hero-poster {
