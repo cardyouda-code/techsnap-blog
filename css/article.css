@@ -1,5 +1,7 @@
 /* ===== ARTICLE PAGE ===== */
 .article-main { padding: 48px 0 72px; }
+/* .amazon-music-cta 等のスタイルはcss/style.cssに統一
+   （article.cssを読み込んでいない記事テンプレートがあるため） */
 
 .article-layout {
   display: grid;
