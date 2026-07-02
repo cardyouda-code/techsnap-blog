@@ -70,8 +70,10 @@
     const forceReveal = !!(opts && opts.forceReveal);
     /* カテゴリと検索キーワードの両方を満たす記事だけを表示する。
        検索中は15件制限のみ無視して該当記事を全件表示する。 */
+    /* data-catはスペース区切りで複数カテゴリ指定可（例: data-cat="撮影機材 PC・周辺パーツ"）。
+       単一値の既存カードもそのまま動く（後方互換）。 */
     const matches = allCards.filter(card =>
-      (currentCat === 'all' || card.dataset.cat === currentCat) && cardMatchesSearch(card)
+      (currentCat === 'all' || (card.dataset.cat || '').split(' ').includes(currentCat)) && cardMatchesSearch(card)
     );
     const limitActive = !searchQuery;
 
